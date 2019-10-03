@@ -7,8 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 class TetrisGrid
 {
     /// The sprite of a single empty cell in the grid.
-    Texture2D emptyCell;
-    Texture2D filledCell;
+    public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
 
     /// The position at which this TetrisGrid should be drawn.
     Vector2 position;
@@ -18,7 +17,7 @@ class TetrisGrid
 
     /// The number of grid elements in the y-direction.
     static public int Height { get { return 20; } }
-    public Color[,] array = new Color[Width, Height];
+    public Texture2D[,] array = new Texture2D[Width, Height];
 
     /// <summary>
     /// Creates a new TetrisGrid.
@@ -26,8 +25,21 @@ class TetrisGrid
     /// <param name="b"></param>
     public TetrisGrid()
     {
-        emptyCell = TetrisGame.ContentManager.Load<Texture2D>("block");
-        filledCell = TetrisGame.ContentManager.Load<Texture2D>("filledblock");
+        block = TetrisGame.ContentManager.Load<Texture2D>("block");
+        yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
+        blue = TetrisGame.ContentManager.Load<Texture2D>("blue");
+        red = TetrisGame.ContentManager.Load<Texture2D>("red");
+        green = TetrisGame.ContentManager.Load<Texture2D>("green");
+        purple = TetrisGame.ContentManager.Load<Texture2D>("purple");
+        babyblue = TetrisGame.ContentManager.Load<Texture2D>("babyblue");
+        orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
+        for (int y = 0; y != Height; y++)
+        {
+            for (int x = 0; x != Width; x++)
+            {
+                array[x, y] = block;
+            }
+        }
         position = Vector2.Zero;
         Clear();
     }
@@ -40,33 +52,64 @@ class TetrisGrid
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         TetrisGrid grid = new TetrisGrid();
-        Color empty = new Color(0, 0, 0, 0);
-        Vector2 position = grid.position;        
+        Vector2 position = grid.position;
         for (int y = 0; y != Height; y++)
         {
             for (int x = 0; x != Width; x++)
             {
-                if (array[x, y] == empty)
+                if (array[x, y] == block)
                 {
-                    spriteBatch.Draw(grid.emptyCell, position, Color.White);   //als leeg teken lege cel
+                    spriteBatch.Draw(grid.block, position, Color.White);   //als leeg teken lege cel
                 }
                 else
                 {
-                    //ColorGrid(array[x,y]);                // als niet leeg teken gekleurde cel
+
+                    spriteBatch.Draw(array[x, y], position, Color.White);   //als kleur, geef kleur
+
                 }
-                position.X += grid.emptyCell.Width;
+                position.X += grid.block.Width;
             }
             position.X = 0;
-            position.Y += grid.emptyCell.Height;
+            position.Y += grid.block.Height;
         }
     }
 
+    public void Shapes()
+    {
+        Texture2D[,] shapeI = new Texture2D[4,4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+        Texture2D[,] shapeJ = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+        Texture2D[,] shapeL = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+        Texture2D[,] shapeO = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+        Texture2D[,] shapeS = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+        Texture2D[,] shapeT = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+        Texture2D[,] shapeZ = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue, babyblue, babyblue, babyblue}};
+    }
 
     /// <summary>
     /// Clears the grid.
     /// </summary>
     public void Clear()
     {
-    }
 }
-
+}
