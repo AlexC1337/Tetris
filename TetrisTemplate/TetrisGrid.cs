@@ -18,7 +18,7 @@ class TetrisGrid
 
     /// The number of grid elements in the y-direction.
     static public int Height { get { return 20; } }
-    public int[,] array = new int[Width, Height];
+    public Color[,] array = new Color[Width, Height];
 
     /// <summary>
     /// Creates a new TetrisGrid.
@@ -40,21 +40,19 @@ class TetrisGrid
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         TetrisGrid grid = new TetrisGrid();
-        int height = TetrisGrid.Height;
-        int width = TetrisGrid.Width;
-        Vector2 position = grid.position;
-        int[,] array = new int[width, height];
-        for (int y = 0; y != height; y++)
+        Color empty = new Color(0, 0, 0, 0);
+        Vector2 position = grid.position;        
+        for (int y = 0; y != Height; y++)
         {
-            for (int x = 0; x != width; x++)
+            for (int x = 0; x != Width; x++)
             {
-                if (array[x, y] == 0)
+                if (array[x, y] == empty)
                 {
-                    spriteBatch.Draw(grid.emptyCell, position, Color.White);
+                    spriteBatch.Draw(grid.emptyCell, position, Color.White);   //als leeg teken lege cel
                 }
-                if (array[x, y] == 1)
+                else
                 {
-                    spriteBatch.Draw(grid.filledCell, position, Color.White);
+                    //ColorGrid(array[x,y]);                // als niet leeg teken gekleurde cel
                 }
                 position.X += grid.emptyCell.Width;
             }
@@ -62,6 +60,7 @@ class TetrisGrid
             position.Y += grid.emptyCell.Height;
         }
     }
+
 
     /// <summary>
     /// Clears the grid.
