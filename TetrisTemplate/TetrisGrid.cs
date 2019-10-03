@@ -76,34 +76,35 @@ class TetrisGrid
 
     public void Shapes()
     {
-        Texture2D[,] shapeI = new Texture2D[4,4]{{block, block, block, block},
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block},
+                                                 {babyblue,babyblue,babyblue,babyblue},
+                                                 {block, block, block, block}};
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
-        Texture2D[,] shapeJ = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block}};
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
-        Texture2D[,] shapeL = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block}};
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
-        Texture2D[,] shapeO = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block}};
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
-        Texture2D[,] shapeS = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block}};
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
-        Texture2D[,] shapeT = new Texture2D[4, 4]{{block, block, block, block},
+                                                 {block, block, block, block}};
+        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
-        Texture2D[,] shapeZ = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {babyblue, babyblue, babyblue, babyblue}};
+                                                 {block, block, block, block}};
+
     }
 
     /// <summary>
