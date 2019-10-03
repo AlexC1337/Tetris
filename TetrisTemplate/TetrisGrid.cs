@@ -8,15 +8,17 @@ class TetrisGrid
 {
     /// The sprite of a single empty cell in the grid.
     Texture2D emptyCell;
+    Texture2D filledCell;
 
     /// The position at which this TetrisGrid should be drawn.
     Vector2 position;
 
     /// The number of grid elements in the x-direction.
-    public int Width { get { return 10; } }
-   
+    static public int Width { get { return 10; } }
+
     /// The number of grid elements in the y-direction.
-    public int Height { get { return 20; } }
+    static public int Height { get { return 20; } }
+    public int[,] array = new int[Width, Height];
 
     /// <summary>
     /// Creates a new TetrisGrid.
@@ -25,6 +27,7 @@ class TetrisGrid
     public TetrisGrid()
     {
         emptyCell = TetrisGame.ContentManager.Load<Texture2D>("block");
+        filledCell = TetrisGame.ContentManager.Load<Texture2D>("filledblock");
         position = Vector2.Zero;
         Clear();
     }
@@ -37,14 +40,22 @@ class TetrisGrid
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         TetrisGrid grid = new TetrisGrid();
-        int height = grid.Height;
-        int width = grid.Width;
+        int height = TetrisGrid.Height;
+        int width = TetrisGrid.Width;
         Vector2 position = grid.position;
-        for (int i = height; i > 0; i--)
+        int[,] array = new int[width, height];
+        for (int y = 0; y != height; y++)
         {
-            for (int j = width; j > 0; j--)
+            for (int x = 0; x != width; x++)
             {
-                spriteBatch.Draw(grid.emptyCell, position, Color.White);
+                if (array[x, y] == 0)
+                {
+                    spriteBatch.Draw(grid.emptyCell, position, Color.White);
+                }
+                if (array[x, y] == 1)
+                {
+                    spriteBatch.Draw(grid.filledCell, position, Color.White);
+                }
                 position.X += grid.emptyCell.Width;
             }
             position.X = 0;
