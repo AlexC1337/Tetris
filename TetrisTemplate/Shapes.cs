@@ -14,18 +14,7 @@ class Shapes : TetrisGrid
     {
         Vector2 pos = new Vector2(TetrisGame.ScreenSize.X / 2, 0);
 
-        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
-        {
-         //   pos.Y + 1;//  Y grid + 1 
-        }
-        if (Keyboard.GetState().IsKeyDown(Keys.Left))
-        {
-         // pos.X - 1   //  x grid - 1
-        }
-        if (Keyboard.GetState().IsKeyDown(Keys.Right))
-        {
-            // pos.X + 1   //  x grid + 1
-        }
+        
 
 
 

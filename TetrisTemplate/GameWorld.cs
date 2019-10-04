@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Microsoft.Xna.Framework.Input;
 
 /// <summary>
 /// A class for representing the game world.
 /// This contains the grid, the falling block, and everything else that the player can see/do.
 /// </summary>
-class GameWorld
+class GameWorld 
 {
     /// <summary>
     /// An enum for the different game states that the game can have.
@@ -54,16 +55,26 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
-     //   enum[] vormen = new enum[] {T,J,L,S,Z,O,I};
-     //   Random Random = new Random;
-       
+        //   enum[] vormen = new enum[] {T,J,L,S,Z,O,I};
+        //   Random Random = new Random;
+        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
+        {
+           Shapes = new Shapes.pos.Y =+ 30; //  Y grid + 1 
+        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Left))
+        {
+            // pos.X - 1   //  x grid - 1
+        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Right))
+        {
+            // pos.X + 1   //  x grid + 1
+        }
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-     //   spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Blue);
         spriteBatch.End();
     }
 
