@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 
 class Shapes : TetrisGrid
@@ -12,6 +13,20 @@ class Shapes : TetrisGrid
     public Shapes()
     {
         Vector2 pos = new Vector2(TetrisGame.ScreenSize.X / 2, 0);
+       if (Keyboard.GetState().IsKeyDown(Keys.Down))
+        {
+          //  Y Pos + 1
+        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Left))
+        {
+            //  x Pos - 1
+        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Right))
+        {
+            //  x Pos + 1
+        }
+
+
 
 
     }
