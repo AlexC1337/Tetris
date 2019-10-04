@@ -16,15 +16,15 @@ class Shapes : TetrisGrid
 
         if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
-          //  Y Pos + 1
+          //  Y grid + 1 
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Left))
         {
-            //  x Pos - 1
+            //  x grid - 1
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Right))
         {
-            //  x Pos + 1
+            //  x grid + 1
         }
 
 
