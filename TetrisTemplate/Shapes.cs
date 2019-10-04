@@ -13,7 +13,8 @@ class Shapes : TetrisGrid
     public Shapes()
     {
         Vector2 pos = new Vector2(TetrisGame.ScreenSize.X / 2, 0);
-       if (Keyboard.GetState().IsKeyDown(Keys.Down))
+
+        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
           //  Y Pos + 1
         }
