@@ -6,11 +6,33 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tetris
-{
-    class Shapes : TetrisGrid
+
+    class Shapes : TetrisGrid 
     {
-        public Texture2D[,] shape = new Texture2D[4, 4];
+    
+    Vector2 postitie = new Vector2(0,0);
+        
+        public Texture2D[,] RotateRight(Texture2D[,] og)
+        {
+            int x = og.Length;
+            for (int i = 0; i < x; ++i)
+            {
+                for (int j = 0; j < x; ++j)
+                {
+                    array[i, j] = og[x - j - 1, i];
+                }
+            }
+            return array;
+        }
+
+        public Texture2D[,] RotateLeft(Texture2D[,] og)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+               og = RotateRight(og);
+            }
+            return og;
+        }
     }
 
     class T : Shapes
@@ -21,11 +43,12 @@ namespace Tetris
     }
     class I : Shapes
     {
+        public I(){
         Texture2D[,] shape = new Texture2D[4, 4]{{block, block, block, block},
                                                  {block, block, block, block},
                                                  {babyblue,babyblue,babyblue,babyblue},
                                                  {block, block, block, block}};
-    }
+    }}
 
     class J : Shapes
     {

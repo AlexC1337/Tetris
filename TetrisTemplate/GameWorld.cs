@@ -54,6 +54,7 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
+        shape = new Shapes();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
