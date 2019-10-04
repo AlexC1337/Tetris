@@ -7,100 +7,102 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-    class Shapes : TetrisGrid 
+class Shapes : TetrisGrid
+{
+    public Shapes()
     {
-    
-    Vector2 postitie = new Vector2(0,0);
-        
-        public Texture2D[,] RotateRight(Texture2D[,] og)
-        {
-            int x = og.Length;
-            for (int i = 0; i < x; ++i)
-            {
-                for (int j = 0; j < x; ++j)
-                {
-                    array[i, j] = og[x - j - 1, i];
-                }
-            }
-            return array;
-        }
+        Vector2 pos = new Vector2(TetrisGame.ScreenSize.X / 2, 0);
 
-        public Texture2D[,] RotateLeft(Texture2D[,] og)
+
+    }
+    public Texture2D[,] RotateRight(Texture2D[,] og) //TODO let op dat geen blokjes buiten het veld komen
+    {
+        int x = og.Length;
+        for (int i = 0; i < x; ++i)
         {
-            for(int i = 0; i < 3; i++)
+            for (int j = 0; j < x; ++j)
             {
-               og = RotateRight(og);
+                array[i, j] = og[x - j - 1, i];
             }
-            return og;
         }
+        return array;
     }
 
-    class T : Shapes
+    public Texture2D[,] RotateLeft(Texture2D[,] og)
     {
-        public T()
+        for (int i = 0; i < 3; i++)
         {
-            Texture2D[,] shape = new Texture2D[3, 3]{               {orange, orange, orange},
+            og = RotateRight(og);
+        }
+        return og;
+    }
+}
+
+class T : Shapes
+{
+    public T()
+    {
+        Texture2D[,] shape = new Texture2D[3, 3]{               {orange, orange, orange},
                                                                      {block, orange, block},
                                                                      {block, block, block}};
-        }
     }
-    class I : Shapes
+}
+class I : Shapes
+{
+    public I()
     {
-        public I()
-        {
-            Texture2D[,] shape = new Texture2D[4, 4]{   {block, block, block, block},
+        Texture2D[,] shape = new Texture2D[4, 4]{   {block, block, block, block},
                                                         {block, block, block, block},
                                                         {babyblue,babyblue,babyblue,babyblue},
                                                         {block, block, block, block}};
-        }
     }
+}
 
-    class J : Shapes
+class J : Shapes
+{
+    public J()
     {
-        public J()
-        {
-            Texture2D[,] shape = new Texture2D[3, 3]{{block, orange, orange},
+        Texture2D[,] shape = new Texture2D[3, 3]{{block, orange, orange},
                                                      {block, orange, block},
                                                     {block, orange, block}};
-        }
     }
-    class L : Shapes
+}
+class L : Shapes
+{
+    public L()
     {
-        public L()
-        {
-            Texture2D[,] shape = new Texture2D[3, 3]{{block, orange, block},
+        Texture2D[,] shape = new Texture2D[3, 3]{{block, orange, block},
                                                      {block, orange, block},
                                                      {block, orange, orange}};
-        }
     }
+}
 
 
-    class S : Shapes
+class S : Shapes
+{
+    public S()
     {
-        public S()
-        {
-            Texture2D[,] shape = new Texture2D[3, 3]{{block, orange, orange},
+        Texture2D[,] shape = new Texture2D[3, 3]{{block, orange, orange},
                                                      {orange, orange, block},
                                                      {block, block, block}};
-        }
     }
+}
 
-    class Z : Shapes
+class Z : Shapes
+{
+    public Z()
     {
-        public Z()
-        {
-            Texture2D[,] shape = new Texture2D[3, 3]{{orange, orange, block},
+        Texture2D[,] shape = new Texture2D[3, 3]{{orange, orange, block},
                                                      {block, orange, orange},
                                                     {block, block, block}};
-        }
     }
+}
 
-    class O : Shapes
+class O : Shapes
+{
+    public O()
     {
-        public O() {
-            Texture2D[,] shape = new Texture2D[2, 2]{{yellow, yellow},
+        Texture2D[,] shape = new Texture2D[2, 2]{{yellow, yellow},
                                                     {yellow, yellow}};
-        }
     }
-    
 }

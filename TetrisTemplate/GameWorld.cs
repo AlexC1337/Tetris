@@ -54,7 +54,9 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
-        shape = new Shapes();
+     //   enum[] vormen = new enum[] {T,J,L,S,Z,O,I};
+     //   Random Random = new Random;
+       
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
