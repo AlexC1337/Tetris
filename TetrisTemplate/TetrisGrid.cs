@@ -43,7 +43,6 @@ class TetrisGrid
         position = Vector2.Zero;
         Clear();
     }
-
     /// <summary>
     /// Draws the grid on the screen.
     /// </summary>
@@ -74,43 +73,10 @@ class TetrisGrid
         }
     }
 
-    public void Shapes()
-    {
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {babyblue,babyblue,babyblue,babyblue},
-                                                 {block, block, block, block}};
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block}};
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block}};
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block}};
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block}};
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block}};
-        Texture2D[,] shapeI = new Texture2D[4, 4]{{block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block},
-                                                 {block, block, block, block}};
-
-    }
-
     /// <summary>
     /// Clears the grid.
     /// </summary>
     public void Clear()
     {
-}
+    }
 }
