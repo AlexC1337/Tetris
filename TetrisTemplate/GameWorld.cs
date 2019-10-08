@@ -59,17 +59,18 @@ class GameWorld
            Random Random = new Random();
            int i = Random.Next(vormen.Length);
            Shapes currentShape = vormen[i];
+        currentShape.gridpos.Y = gameTime.TotalGameTime.Milliseconds + 1; // weet niet of dit werkt
         if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
           currentShape.gridpos.Y = currentShape.gridpos.Y =+ 1; //  Y grid + 1 
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Left))
         {
-            currentShape.gridpos.X = currentShape.gridpos.X -= +1; //  Y grid + 1 
+            currentShape.gridpos.X = currentShape.gridpos.X -= +1; //  X grid -1 (naar links)
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Right))
         {
-            // pos.X + 1   //  x grid + 1
+            currentShape.gridpos.X = currentShape.gridpos.X += +1; //  X grid =1 (naar rechts)
         }
     }
 
