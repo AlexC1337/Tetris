@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 /// A class for representing the game world.
 /// This contains the grid, the falling block, and everything else that the player can see/do.
 /// </summary>
-class GameWorld 
+class GameWorld
 {
     /// <summary>
     /// An enum for the different game states that the game can have.
@@ -17,6 +17,7 @@ class GameWorld
         Playing,
         GameOver
     }
+    Shapes currentShape;
 
     /// <summary>
     /// The random-number generator of the game.
@@ -38,14 +39,14 @@ class GameWorld
     /// The main grid of the game.
     /// </summary>
     TetrisGrid grid;
+    Shapes[] vormen = new Shapes[] { new T(), new J(), new L(), new S(), new Z(), new O(), new I() };
 
     public GameWorld()
     {
         random = new Random();
         gameState = GameState.Playing;
-
+        currentShape = vormen[random.Next(vormen.Length)];
         font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
-
         grid = new TetrisGrid();
     }
 
@@ -55,14 +56,14 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
-           Shapes[] vormen = new Shapes[] {new T(),new J(), new L(), new S(), new Z(), new O(), new I()};
-           Random Random = new Random();
-           int i = Random.Next(vormen.Length);
-           Shapes currentShape = vormen[i];
-        currentShape.gridpos.Y = gameTime.TotalGameTime.Milliseconds + 1; // weet niet of dit werkt
+        if (currentShape == null) 
+        {
+            currentShape = vormen[random.Next(vormen.Length)];
+        }
+        currentShape.gridpos.Y += gameTime.TotalGameTime.Seconds/60; // weet niet of dit werkt
         if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
-          currentShape.gridpos.Y = currentShape.gridpos.Y =+ 1; //  Y grid + 1 
+           // currentShape.gridpos.Y = currentShape.gridpos.Y = +1; //  Y grid + 1 
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Left))
         {
@@ -78,6 +79,7 @@ class GameWorld
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
+        currentShape.Draw(gameTime, spriteBatch);
         spriteBatch.End();
     }
 

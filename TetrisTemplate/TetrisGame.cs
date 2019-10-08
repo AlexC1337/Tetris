@@ -64,7 +64,9 @@ class TetrisGame : Game
         gameWorld.HandleInput(gameTime, inputHelper);
         gameWorld.Update(gameTime);
         if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //sluit af met <esc>
-        { Exit(); }
+        {
+            Exit();
+        }
     }
 
     protected override void Draw(GameTime gameTime)
