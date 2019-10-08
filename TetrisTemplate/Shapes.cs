@@ -10,14 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 class Shapes : TetrisGrid
 {
+    public Vector2 gridpos;
     public Shapes()
     {
-        Vector2 pos = new Vector2(TetrisGame.ScreenSize.X / 2, 0);
-
-        
-
-
-
+        Vector2 gridpos = new Vector2(TetrisGame.ScreenSize.X / 2, 0);
 
     }
     public Texture2D[,] RotateRight(Texture2D[,] og) //TODO let op dat geen blokjes buiten het veld komen

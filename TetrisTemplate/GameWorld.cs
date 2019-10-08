@@ -55,15 +55,17 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
-        //   enum[] vormen = new enum[] {T,J,L,S,Z,O,I};
-        //   Random Random = new Random;
+           Shapes[] vormen = new Shapes[] {new T(),new J(), new L(), new S(), new Z(), new O(), new I()};
+           Random Random = new Random();
+           int i = Random.Next(vormen.Length);
+           Shapes currentShape = vormen[i];
         if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
-           Shapes = new Shapes.pos.Y =+ 30; //  Y grid + 1 
+          currentShape.gridpos.Y = currentShape.gridpos.Y =+ 1; //  Y grid + 1 
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Left))
         {
-            // pos.X - 1   //  x grid - 1
+            currentShape.gridpos.X = currentShape.gridpos.X -= +1; //  Y grid + 1 
         }
         if (Keyboard.GetState().IsKeyDown(Keys.Right))
         {
