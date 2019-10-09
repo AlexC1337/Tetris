@@ -73,6 +73,11 @@ class GameWorld
         {
             currentShape.gridpos.X = currentShape.gridpos.X += +1; //  X grid =1 (naar rechts)
         }
+
+        if (currentShape.gridpos.Y == )
+        {
+            //place schape on grid
+        }
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
