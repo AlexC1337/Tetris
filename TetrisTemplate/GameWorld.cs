@@ -74,10 +74,10 @@ class GameWorld
             currentShape.gridpos.X = currentShape.gridpos.X += +1; //  X grid =1 (naar rechts)
         }
 
-        if (currentShape.gridpos.Y == )
-        {
+      //  if (currentShape.gridpos.Y == niet verder kan)
+       // {
             //place schape on grid
-        }
+       // }
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
