@@ -94,13 +94,18 @@ class GameWorld
     {
     }
 
-    public void Sounds(ContentManager Content)
+    public void Sounds(ContentManager Content) // plek nog niet vast
     {
        
         MediaPlayer.IsRepeating = true;
-        MediaPlayer.Play(Content.Load<Song>("Tetris"));
-        
-       // LineClear = Content.Load<SoundEffect>("clear"); /// moet bij de method die line clear doet
+        MediaPlayer.Play(Content.Load<Song>("Tetris")); // hier vandaan https://archive.org/details/TetrisThemeMusic
+
+        /* LineClear = Content.Load<SoundEffect>("clear"); /// moet bij de method die line clear doet\
+         if( line is cleared) 
+         {
+             LineClear.Play();
+         }
+     */
     }
     
 }
