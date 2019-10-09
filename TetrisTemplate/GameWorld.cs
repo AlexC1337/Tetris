@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Microsoft.Xna.Framework.Input;
 
 /// <summary>
 /// A class for representing the game world.
@@ -16,6 +17,7 @@ class GameWorld
         Playing,
         GameOver
     }
+    Shapes currentShape;
 
     /// <summary>
     /// The random-number generator of the game.
@@ -37,14 +39,14 @@ class GameWorld
     /// The main grid of the game.
     /// </summary>
     TetrisGrid grid;
+    Shapes[] vormen = new Shapes[] { new T(), new J(), new L(), new S(), new Z(), new O(), new I() };
 
     public GameWorld()
     {
         random = new Random();
         gameState = GameState.Playing;
-
+        currentShape = vormen[random.Next(vormen.Length)];
         font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
-
         grid = new TetrisGrid();
     }
 
@@ -54,18 +56,30 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
-        enum Vorm {T,J,L,S,Z,O,I};
-        int i = random.Next(6);
-        Shapes Blok = Vorm(i);
-
-
+        if (currentShape == null) 
+        {
+            currentShape = vormen[random.Next(vormen.Length)];
+        }
+        currentShape.gridpos.Y += gameTime.TotalGameTime.Seconds/60; // weet niet of dit werkt
+        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
+        {
+           // currentShape.gridpos.Y = currentShape.gridpos.Y = +1; //  Y grid + 1 
+        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Left))
+        {
+            currentShape.gridpos.X = currentShape.gridpos.X -= +1; //  X grid -1 (naar links)
+        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Right))
+        {
+            currentShape.gridpos.X = currentShape.gridpos.X += +1; //  X grid =1 (naar rechts)
+        }
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-     //   spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Blue);
+        currentShape.Draw(gameTime, spriteBatch);
         spriteBatch.End();
     }
 
