@@ -45,6 +45,7 @@
 # Kernel Module Compile Results
 *.mod*
 *.cmd
+*.mgcontent
 .tmp_versions/
 modules.order
 Module.symvers
@@ -54,3 +55,5 @@ Debug/
 bin/
 v15/
 obj/x86
+*.mgcontent
+*.mgcontent

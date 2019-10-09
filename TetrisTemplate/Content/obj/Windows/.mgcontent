@@ -4,14 +4,14 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/SpelFont.spritefont</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/block.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/babyblue.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/blue.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/green.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/orange.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/purple.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/red.png</File>
-    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/yellow.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/SpelFont.spritefont</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/block.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/babyblue.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/blue.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/green.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/orange.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/purple.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/red.png</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/yellow.png</File>
   </SourceFiles>
 </SourceFileCollection>
