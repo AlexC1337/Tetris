@@ -76,9 +76,9 @@ class GameWorld
             currentShape.gridpos.X = currentShape.gridpos.X += +1; //  X grid =1 (naar rechts)
         }
 
-        //  if (currentShape.gridpos.Y == block(met kleur.Y) || currentShape.gridpos.Y == 20
+        //  if (currentShape.gridpos.Y == bestaand blok || currentShape.gridpos.Y == 20
         // {
-        //      currentShape = block(met kleur)
+        //      grid word dat blok?
         // }
     }
 
