@@ -18,17 +18,19 @@ class Shapes
     public Texture2D babyblue = TetrisGame.ContentManager.Load<Texture2D>("babyblue");
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
     public Texture2D[,] array;
-    public Vector2 gridpos;
+    public Point gridpos;
     public Shapes()
     {
         Random random = new Random();
-        gridpos = new Vector2(4, 0);
+        gridpos = new Point(4, 0);
     }
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         int Height = array.GetLength(1);
         int Width = Height;
-        Vector2 position = gridpos * block.Width;
+        Vector2 position;
+        position.X = gridpos.X * block.Width;
+        position.Y = gridpos.Y * block.Height;
         for (int y = 0; y != Height; y++)
         {
             for (int x = 0; x != Width; x++)
@@ -52,6 +54,7 @@ class Shapes
                 tempArray[i, j] = array[x - j - 1, i];
             }
         }
+        if (!Collision()) ;
         array = tempArray;
     }
 
@@ -63,42 +66,55 @@ class Shapes
         }
     }
 
-    public bool Collision(string direction)
+    public bool Collision()
     {
         bool collision = false;
         int length = array.GetLength(1);
-        switch (direction)
-        {
-            case "left":
-                if (gridpos.X < 0) {
-                    for (int y = 0; y < length, y++)
-                    {
-                        if (array[0, y] != block)
-                        {
-                            collision = true;
-                        }
-                    }
-                }
-                break;
+        //switch (direction)
+        //{
+        //    case "left":
+        //        if (gridpos.X <= 0) {
+        //            for (int y = 0; y < length; y++)
+        //            {
+        //                if (array[(-gridpos.X), y] != block)
+        //                {
+        //                    collision = true;
+        //                }
+        //            }
+        //        }
+        //        break;
 
-            case "right":
-                for (int y = 0; y < length , y++)
+        //    case "right":
+        //        for (int y = 0; y < length; y++)
+        //        {
+        //            if (array[length, y] != block)
+        //            {
+        //                collision = true;
+        //            }
+        //        }
+        //        break;
+        //    case "bottom":
+        //        for (int x = 0; x < length; x++)
+        //        {
+        //            if (array[x, length] != block)
+        //            {
+        //                collision = true;
+        //            }
+        //        }
+        //        break;
+        //    case "all":
+        //        if(Collision("left") || Collision("right") || Collision("bottom"))
+        //        break;
+        //}
+        for (int x = 0; x < length; x++)
+        {
+            for(int y = 0; y> length; y++)
+            {
+                if(array[x,y] != block && (x+gridpos.X < 0 || x+gridpos.X >10)
                 {
-                    if (array[length, y] != block)
-                    {
-                        collision = true;
-                    }
+                    collision = true;
                 }
-                break;
-            case "bottom":
-                for (int x = 0; x < length)
-                {
-                    if (array[x, length] != block && )
-                    {
-                        collision = true;
-                    }
-                }
-                break;
+            }
         }
         return collision;
     }

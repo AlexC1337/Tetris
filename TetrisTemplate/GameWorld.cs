@@ -51,17 +51,26 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Down) && !currentShape.Collision("bottom")  /// andere positie in code
+        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
-            currentShape.gridpos.Y += 1; //  Y grid + 1 
+            currentShape.gridpos.Y += 1; //  Y grid + 1
+
         }
-        if (inputHelper.KeyPressed(Keys.Left) && currentShape.gridpos.X > 0)
+        if (inputHelper.KeyPressed(Keys.Left))
         {
             currentShape.gridpos.X -= 1; //  X grid -1 (naar links)
+            if (currentShape.Collision())
+            {
+                currentShape.gridpos.X += 1;
+            }
         }
         if (inputHelper.KeyPressed(Keys.Right))
         {
             currentShape.gridpos.X += 1; //  X grid =1 (naar rechts)
+            if (currentShape.Collision())
+            {
+                currentShape.gridpos.X -= 1;
+            }
         }
         if (inputHelper.KeyPressed(Keys.A))
         {
