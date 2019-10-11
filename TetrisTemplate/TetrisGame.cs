@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
 
 class TetrisGame : Game
 {
@@ -15,7 +17,7 @@ class TetrisGame : Game
     /// A static reference to the ContentManager object, used for loading assets.
     /// </summary>
     public static ContentManager ContentManager { get; private set; }
-    public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
+   // public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
 
     /// <summary>
     /// A static reference to the width and height of the screen.
@@ -33,7 +35,7 @@ class TetrisGame : Game
     {        
         // initialize the graphics device
         GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
-
+       
         // store a static reference to the content manager, so other objects can use it
         ContentManager = Content;
         
@@ -47,6 +49,9 @@ class TetrisGame : Game
 
         // create the input helper object
         inputHelper = new InputHelper();
+
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.Play(Content.Load<Song>("Tetris")); // hier vandaan https://archive.org/details/TetrisThemeMusic
     }
 
     protected override void LoadContent()
@@ -64,10 +69,8 @@ class TetrisGame : Game
         inputHelper.Update(gameTime);
         gameWorld.HandleInput(gameTime, inputHelper);
         gameWorld.Update(gameTime);
-        if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //sluit af met <esc>
-        {
-            Exit();
-        }
+        if (Keyboard.GetState().IsKeyDown(Keys.Escape)){ Exit(); } //sluit af met <esc>
+
     }
 
     protected override void Draw(GameTime gameTime)
