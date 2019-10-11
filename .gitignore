@@ -54,6 +54,7 @@ dkms.conf
 Debug/
 bin/
 v15/
+v16/
 obj/x86
 *.mgcontent
 *.mgcontent
