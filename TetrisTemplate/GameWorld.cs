@@ -113,11 +113,6 @@ class GameWorld
             currentShape.gridpos.Y += 1;
             timeSinceLastMove -= speed;
         }
-
-        //  if (currentShape.gridpos.Y == bestaand blok || currentShape.gridpos.Y == 20
-        // {
-        //      grid word dat blok?
-        // }
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
