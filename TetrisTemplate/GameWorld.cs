@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Content;
 
 /// <summary>
 /// A class for representing the game world.
@@ -111,8 +113,11 @@ class GameWorld
             currentShape.gridpos.Y += 1;
             timeSinceLastMove -= speed;
         }
-        
 
+        //  if (currentShape.gridpos.Y == bestaand blok || currentShape.gridpos.Y == 20
+        // {
+        //      grid word dat blok?
+        // }
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -127,4 +132,18 @@ class GameWorld
     {
     }
 
+    public void Sounds(ContentManager Content) // plek nog niet vast
+    {
+       
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.Play(Content.Load<Song>("Tetris")); // hier vandaan https://archive.org/details/TetrisThemeMusic
+
+        /* LineClear = Content.Load<SoundEffect>("clear"); /// moet bij de method die line clear doet\
+         if( line is cleared) 
+         {
+             LineClear.Play();
+         }
+     */
+    }
+    
 }
