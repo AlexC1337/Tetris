@@ -9,13 +9,10 @@ class TetrisGame : Game
     SpriteBatch spriteBatch;
     InputHelper inputHelper;
     GameWorld gameWorld;
-    Shapes Shapes;
-
     /// <summary>
     /// A static reference to the ContentManager object, used for loading assets.
     /// </summary>
     public static ContentManager ContentManager { get; private set; }
-    public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
 
     /// <summary>
     /// A static reference to the width and height of the screen.

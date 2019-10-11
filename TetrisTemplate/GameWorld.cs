@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Content;
 
 /// <summary>
 /// A class for representing the game world.
@@ -53,11 +51,11 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
+        if (Keyboard.GetState().IsKeyDown(Keys.Down) && !currentShape.Collision("bottom")  /// andere positie in code
         {
             currentShape.gridpos.Y += 1; //  Y grid + 1 
         }
-        if (inputHelper.KeyPressed(Keys.Left))
+        if (inputHelper.KeyPressed(Keys.Left) && currentShape.gridpos.X > 0)
         {
             currentShape.gridpos.X -= 1; //  X grid -1 (naar links)
         }
@@ -65,9 +63,17 @@ class GameWorld
         {
             currentShape.gridpos.X += 1; //  X grid =1 (naar rechts)
         }
+        if (inputHelper.KeyPressed(Keys.A))
+        {
+            currentShape.RotateLeft();
+        }
+        if (inputHelper.KeyPressed(Keys.D))
+        {
+           currentShape.RotateRight();
+        }
     }
 
-    public void Initialise() { 
+    public void Initialise() {  //wilde eerst random object uit array maar dit werkte niet, daarom dus deze onelegante switch
     
         switch (random.Next(7))
         {
@@ -113,6 +119,8 @@ class GameWorld
             currentShape.gridpos.Y += 1;
             timeSinceLastMove -= speed;
         }
+        
+
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -127,18 +135,4 @@ class GameWorld
     {
     }
 
-    public void Sounds(ContentManager Content) // plek nog niet vast
-    {
-       
-        MediaPlayer.IsRepeating = true;
-        MediaPlayer.Play(Content.Load<Song>("Tetris")); // hier vandaan https://archive.org/details/TetrisThemeMusic
-
-        /* LineClear = Content.Load<SoundEffect>("clear"); /// moet bij de method die line clear doet\
-         if( line is cleared) 
-         {
-             LineClear.Play();
-         }
-     */
-    }
-    
 }

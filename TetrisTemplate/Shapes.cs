@@ -22,7 +22,7 @@ class Shapes
     public Shapes()
     {
         Random random = new Random();
-        gridpos = new Vector2(random.Next(TetrisGame.ScreenSize.X/32), 0);
+        gridpos = new Vector2(4, 0);
     }
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
@@ -33,34 +33,74 @@ class Shapes
         {
             for (int x = 0; x != Width; x++)
             {
-                spriteBatch.Draw(array[x, y], position, Color.White);   //als kleur, geef kleur
+                if (array[x,y] != block)
+                spriteBatch.Draw(array[x, y], position, Color.White);  //als kleur, geef kleur
                 position.X += block.Width;
             }
             position.X = gridpos.X * block.Width;
             position.Y += block.Height;
         }
     }
-    public Texture2D[,] RotateRight(Texture2D[,] og) //TODO let op dat geen blokjes buiten het veld komen
+    public void RotateRight() //TODO let op dat geen blokjes buiten het veld komen
     {
-        int x = og.Length;
-        Texture2D[,] array = new Texture2D[x, x];
-        for (int i = 0; i < x; ++i)
+        int x = array.GetLength(1);
+        Texture2D[,] tempArray = new Texture2D[x,x];
+        for (int i = 0; i < x; i++)
         {
-            for (int j = 0; j < x; ++j)
+            for (int j = 0; j < x; j++)
             {
-                array[i, j] = og[x - j - 1, i];
+                tempArray[i, j] = array[x - j - 1, i];
             }
         }
-        return array;
+        array = tempArray;
     }
 
-    public Texture2D[,] RotateLeft(Texture2D[,] og)
+    public void RotateLeft()
     {
         for (int i = 0; i < 3; i++)
         {
-            og = RotateRight(og);
+            RotateRight();
         }
-        return og;
+    }
+
+    public bool Collision(string direction)
+    {
+        bool collision = false;
+        int length = array.GetLength(1);
+        switch (direction)
+        {
+            case "left":
+                if (gridpos.X < 0) {
+                    for (int y = 0; y < length, y++)
+                    {
+                        if (array[0, y] != block)
+                        {
+                            collision = true;
+                        }
+                    }
+                }
+                break;
+
+            case "right":
+                for (int y = 0; y < length , y++)
+                {
+                    if (array[length, y] != block)
+                    {
+                        collision = true;
+                    }
+                }
+                break;
+            case "bottom":
+                for (int x = 0; x < length)
+                {
+                    if (array[x, length] != block && )
+                    {
+                        collision = true;
+                    }
+                }
+                break;
+        }
+        return collision;
     }
 }
 
