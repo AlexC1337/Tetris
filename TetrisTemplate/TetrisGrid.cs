@@ -75,6 +75,54 @@ class TetrisGrid
         }
     }
 
+    void CheckfullLine()
+    {
+        for (int i = Height - 1; i >= 0; i--)
+        {
+            if (FullLine(i))
+            {
+                ClearLine(i);
+                MoveDown(i);
+            }
+        }
+    }
+
+    bool FullLine(int i)
+    {
+        for (int j = 0; j< Width; j++)
+        {
+            if (array[i, j] != block)
+            return true;
+        }
+            return false;    
+    }
+        
+   void ClearLine(int i)
+    {
+        for (int j = 0; j< Width; j++)
+        {
+            // niet zeker hoe dit werkt clear array[i, j] =  ;
+            array[i, j] = null;
+        }
+    }
+    void MoveDown(int i)
+    {
+        for (int y = i; i < Height; y++)
+        {
+            for (int j=0; j <Width; j++)
+            {
+                if(array[j, y] != null)
+                {
+                    array[j, y - 1] = array[j, y];
+                    array[j, y] = null;
+                    //mss nog een comand zoals array[j, y-1] = new Vector/ new posision
+                }
+            }
+        }
+    }
+    
+
+   
     /// <summary>
     /// Clears the grid.
     /// </summary>

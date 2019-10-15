@@ -110,7 +110,7 @@ class Shapes
         {
             for(int y = 0; y> length; y++)
             {
-                if(array[x,y] != block && (x+gridpos.X < 0 || x+gridpos.X >10)
+                if(array[x,y] != block && (x+gridpos.X < 0 || x+gridpos.X >10))
                 {
                     collision = true;
                 }
