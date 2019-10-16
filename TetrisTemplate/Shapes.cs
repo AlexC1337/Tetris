@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-class Shapes
+class Shapes : GameWorld
 {
     public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
     public Texture2D yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
@@ -19,11 +19,13 @@ class Shapes
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
     public Texture2D[,] array;
     public Point gridpos;
+    public Point RelPos;
     public Shapes()
     {
         Random random = new Random();
         gridpos = new Point(4, 0);
-    }
+        RelPos = new Point(gridpos.X, gridpos.Y);
+}
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         int Height = array.GetLength(1);
@@ -35,8 +37,8 @@ class Shapes
         {
             for (int x = 0; x != Width; x++)
             {
-                if (array[x,y] != block)
-                spriteBatch.Draw(array[x, y], position, Color.White);  //als kleur, geef kleur
+                if (array[x, y] != block)
+                    spriteBatch.Draw(array[x, y], position, Color.White);  //als kleur, geef kleur
                 position.X += block.Width;
             }
             position.X = gridpos.X * block.Width;
@@ -46,7 +48,7 @@ class Shapes
     public void RotateRight() //TODO let op dat geen blokjes buiten het veld komen
     {
         int x = array.GetLength(1);
-        Texture2D[,] tempArray = new Texture2D[x,x];
+        Texture2D[,] tempArray = new Texture2D[x, x];
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < x; j++)
@@ -54,8 +56,11 @@ class Shapes
                 tempArray[i, j] = array[x - j - 1, i];
             }
         }
-        if (!Collision()) ;
         array = tempArray;
+        if (Collision())
+        {
+            RotateLeft();
+        }
     }
 
     public void RotateLeft()
@@ -64,60 +69,12 @@ class Shapes
         {
             RotateRight();
         }
-    }
-
-    public bool Collision()
-    {
-        bool collision = false;
-        int length = array.GetLength(1);
-        //switch (direction)
-        //{
-        //    case "left":
-        //        if (gridpos.X <= 0) {
-        //            for (int y = 0; y < length; y++)
-        //            {
-        //                if (array[(-gridpos.X), y] != block)
-        //                {
-        //                    collision = true;
-        //                }
-        //            }
-        //        }
-        //        break;
-
-        //    case "right":
-        //        for (int y = 0; y < length; y++)
-        //        {
-        //            if (array[length, y] != block)
-        //            {
-        //                collision = true;
-        //            }
-        //        }
-        //        break;
-        //    case "bottom":
-        //        for (int x = 0; x < length; x++)
-        //        {
-        //            if (array[x, length] != block)
-        //            {
-        //                collision = true;
-        //            }
-        //        }
-        //        break;
-        //    case "all":
-        //        if(Collision("left") || Collision("right") || Collision("bottom"))
-        //        break;
-        //}
-        for (int x = 0; x < length; x++)
+        if (Collision())
         {
-            for(int y = 0; y> length; y++)
-            {
-                if(array[x,y] != block && (x+gridpos.X < 0 || x+gridpos.X >10))
-                {
-                    collision = true;
-                }
-            }
+            RotateRight();
         }
-        return collision;
     }
+
 }
 
 class T : Shapes

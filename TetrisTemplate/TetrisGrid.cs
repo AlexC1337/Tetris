@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 /// <summary>
 /// A class for representing the Tetris playing grid.
 /// </summary>
-class TetrisGrid
+class TetrisGrid : GameWorld
 {
     /// The sprite of a single empty cell in the grid.
     // public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
@@ -19,7 +19,7 @@ class TetrisGrid
     static public int Height { get { return 20; } }
     public Texture2D[,] array = new Texture2D[Width, Height];
 
-  public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
+    public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
     public Texture2D yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
     public Texture2D blue = TetrisGame.ContentManager.Load<Texture2D>("blue");
     public Texture2D red = TetrisGame.ContentManager.Load<Texture2D>("red");
