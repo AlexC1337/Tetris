@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 /// <summary>
 /// A class for representing the Tetris playing grid.
 /// </summary>
-class TetrisGrid : GameWorld
+class TetrisGrid
 {
     /// The sprite of a single empty cell in the grid.
     // public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
 
     /// The position at which this TetrisGrid should be drawn.
-    Vector2 position;
+    public Vector2 position;
 
     /// The number of grid elements in the x-direction.
     static public int Width { get { return 10; } }
@@ -52,49 +52,40 @@ class TetrisGrid : GameWorld
     /// <param name="spriteBatch">The SpriteBatch used for drawing sprites and text.</param>
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        TetrisGrid grid = new TetrisGrid();
-        Vector2 position = grid.position;
+        Vector2 drawPos = position;
         for (int y = 0; y != Height; y++)
         {
             for (int x = 0; x != Width; x++)
             {
-                if (array[x, y] == block)
-                {
-                    spriteBatch.Draw(grid.block, position, Color.White);   //als leeg teken lege cel
-                }
-                else
-                {
-
-                    spriteBatch.Draw(array[x, y], position, Color.White);   //als kleur, geef kleur
-
-                }
-                position.X += grid.block.Width;
+                spriteBatch.Draw(array[x, y], drawPos, Color.White);   //als leeg teken lege cel             
+                drawPos.X += block.Width;
             }
-            position.X = 0;
-            position.Y += grid.block.Height;
+            drawPos.X = 0;
+            drawPos.Y += block.Height;
         }
     }
 
-    void CheckfullLine()
+    public void CheckfullLine()
     {
-        for (int i = Height - 1; i >= 0; i--)
+        for (int i= Height- 1; i > 0; i--)
         {
             if (FullLine(i))
             {
                 ClearLine(i);
-                MoveDown(i);
+              //  MoveDown(Height);
             }
         }
     }
 
     bool FullLine(int i)
     {
-        for (int j = 0; j< Width; j++)
+        bool check = true;
+        for (int j = 0; j< Width-1; j++)
         {
-            if (array[i, j] != block)
-            return true;
+            if (array[j, i] == block)
+            check = false;
         }
-            return false;    
+        return check;
     }
         
    void ClearLine(int i)
@@ -102,7 +93,7 @@ class TetrisGrid : GameWorld
         for (int j = 0; j< Width; j++)
         {
             // niet zeker hoe dit werkt clear array[i, j] =  ;
-            array[i, j] = null;
+            array[j, i] = block;
         }
     }
     void MoveDown(int i)

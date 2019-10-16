@@ -38,7 +38,7 @@ class GameWorld
     /// <summary>
     /// The main grid of the game.
     /// </summary>
-   public TetrisGrid grid;
+    public TetrisGrid grid;
     //  Shapes[] vormen = new Shapes[] { new T(), new J(), new L(), new S(), new Z(), new O(), new I()};
     double speed = 1;
     double timeSinceLastMove = 0;
@@ -54,7 +54,7 @@ class GameWorld
         if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
         {
             currentShape.gridpos.Y += 1; //  Y grid + 1
-            if(Collision())
+            if (Collision())
             {
                 currentShape.gridpos.Y -= 1;
             }
@@ -78,15 +78,34 @@ class GameWorld
         if (inputHelper.KeyPressed(Keys.A))
         {
             currentShape.RotateLeft();
+            if (Collision())
+            {
+                currentShape.RotateRight();
+            }
         }
         if (inputHelper.KeyPressed(Keys.D))
         {
-           currentShape.RotateRight();
+            currentShape.RotateRight();
+            if (Collision())
+            {
+                currentShape.RotateLeft();
+            }
         }
     }
 
-    public void Initialise() {  //wilde eerst random object uit array maar dit werkte niet, daarom dus deze onelegante switch
-    
+    public void Initialise()
+    {  //wilde eerst random object uit array maar dit werkte niet, daarom dus deze onelegante switch
+
+        MakeShape();
+        int arraySize = currentShape.array.Length;
+        Texture2D[,] array = currentShape.array;
+
+        font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
+        grid = new TetrisGrid();
+    }
+
+    protected void MakeShape()
+    {
         switch (random.Next(7))
         {
             case 0:
@@ -111,53 +130,29 @@ class GameWorld
                 currentShape = new Z();
                 break;
         }
-        int arraySize = currentShape.array.Length;
-        Texture2D[,] array = currentShape.array;
-
-        font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
-        grid = new TetrisGrid();
     }
 
     public void Update(GameTime gameTime)
     {
-        if (currentShape == null) 
-        {
-            //currentShape = vormen[random.Next(vormen.Length)];
-        }
 
         timeSinceLastMove += gameTime.ElapsedGameTime.TotalSeconds;
-        if( timeSinceLastMove >= speed)
+        if (timeSinceLastMove >= speed)
         {
             currentShape.gridpos.Y += 1;
             timeSinceLastMove -= speed;
             if (Collision())
             {
-                Texture2D[,] array = currentShape.array;
-                int length = array.GetLength(1);
-                for (int y = 0; y < length; y++)
-                {
-                    for (int x = 0; x < length; x++)
-                    {
-                        currentShape.RelPos.X = currentShape.gridpos.X + x;
-                        currentShape.RelPos.Y = currentShape.gridpos.Y + y;
-                        if (currentShape.array[x, y].Name != "block")
-                        {
-                           
-                        }
-
-                    }
-                }
+                currentShape.gridpos.Y -= 1;
+                JoinGrid();
             }
         }
-        
-
     }
     public bool Collision()
     {
         bool collision = false;
         Texture2D[,] array = currentShape.array;
         Point gridpos = currentShape.gridpos;
-        Point RelPos = currentShape.RelPos;
+        Point RelPos = gridpos;
         int length = array.GetLength(1);
         //switch (direction)
 
@@ -165,11 +160,11 @@ class GameWorld
         {
             for (int x = 0; x < length; x++)
             {
-                RelPos.X = gridpos.X + x;
-                RelPos.Y = gridpos.Y + y;
+               int blockX = gridpos.X + x;
+               int blockY = gridpos.Y + y;
                 if (array[x, y].Name != "block")
                 {
-                    if (RelPos.X < 0 || RelPos.X > 9 || RelPos.Y < 0 || RelPos.Y > 20 || grid.array[RelPos.X, RelPos.Y].Name != "block")
+                    if (blockX < 0 || blockX > 9 || blockY < 0 || blockY > 19 || grid.array[blockX, blockY].Name != "block")//kijk of shape niet buiten grid raakt en dat shape niet op een gevuld gridblok staat
                     {
                         collision = true;
 
@@ -179,6 +174,26 @@ class GameWorld
             }
         }
         return collision;
+    }
+
+    public void JoinGrid()
+    {
+        Texture2D[,] array = currentShape.array;
+        int length = array.GetLength(1);
+        for (int y = 0; y < length; y++)
+        {
+            for (int x = 0; x < length; x++)
+            {
+                int blockX = currentShape.gridpos.X + x;
+                int blockY = currentShape.gridpos.Y + y;
+                if (currentShape.array[x, y].Name != "block")
+                {
+                    grid.array[blockX, blockY] = currentShape.array[x, y];
+                }
+            }
+        }
+        MakeShape();
+       // grid.CheckfullLine();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

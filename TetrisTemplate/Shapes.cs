@@ -19,13 +19,11 @@ class Shapes : GameWorld
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
     public Texture2D[,] array;
     public Point gridpos;
-    public Point RelPos;
     public Shapes()
     {
         Random random = new Random();
         gridpos = new Point(4, 0);
-        RelPos = new Point(gridpos.X, gridpos.Y);
-}
+    }
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         int Height = array.GetLength(1);
@@ -57,10 +55,7 @@ class Shapes : GameWorld
             }
         }
         array = tempArray;
-        if (Collision())
-        {
-            RotateLeft();
-        }
+
     }
 
     public void RotateLeft()
@@ -69,10 +64,7 @@ class Shapes : GameWorld
         {
             RotateRight();
         }
-        if (Collision())
-        {
-            RotateRight();
-        }
+
     }
 
 }
@@ -81,9 +73,9 @@ class T : Shapes
 {
     public T()
     {
-        array = new Texture2D[3, 3]{               {orange, orange, orange},
-                                                                     {block, orange, block},
-                                                                     {block, block, block}};
+array = new Texture2D[3, 3]{{purple, purple, purple},
+                            {block, purple, block},
+                            {block, block, block}};
     }
 }
 class I : Shapes
@@ -101,18 +93,18 @@ class J : Shapes
 {
     public J()
     {
-        array = new Texture2D[3, 3]{{block, orange, orange},
-                                                     {block, orange, block},
-                                                    {block, orange, block}};
+        array = new Texture2D[3, 3]{{block, red, red},
+                                    {block, red, block},
+                                    {block, red, block}};
     }
 }
 class L : Shapes
 {
     public L()
     {
-        array = new Texture2D[3, 3]{{block, orange, block},
-                                                     {block, orange, block},
-                                                     {block, orange, orange}};
+        array = new Texture2D[3, 3]{{block, green, block},
+                                                     {block, green, block},
+                                                     {block, green, green}};
     }
 }
 
@@ -131,8 +123,8 @@ class Z : Shapes
 {
     public Z()
     {
-        array = new Texture2D[3, 3]{{orange, orange, block},
-                                                     {block, orange, orange},
+        array = new Texture2D[3, 3]{{blue, blue, block},
+                                                     {block, blue, blue},
                                                     {block, block, block}};
     }
 }
