@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
@@ -8,27 +10,25 @@ using Microsoft.Xna.Framework.Content;
 /// </summary>
 class TetrisGrid
 {
-    /// The sprite of a single empty cell in the grid.
-    // public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
 
     /// The position at which this TetrisGrid should be drawn.
     public Vector2 position;
 
-    /// The number of grid elements in the x-direction.
+    /// The aantal of grid elements in the x-direction.
     static public int Width { get { return 10; } }
 
-    /// The number of grid elements in the y-direction.
+    /// The aantal of grid elements in the y-direction.
     static public int Height { get { return 20; } }
     public Texture2D[,] array = new Texture2D[Width, Height];
 
-    public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
+    public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");// Sprites van de gebruikte blokjes
     public Texture2D yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
     public Texture2D blue = TetrisGame.ContentManager.Load<Texture2D>("blue");
     public Texture2D red = TetrisGame.ContentManager.Load<Texture2D>("red");
     public Texture2D green = TetrisGame.ContentManager.Load<Texture2D>("green");
     public Texture2D purple = TetrisGame.ContentManager.Load<Texture2D>("purple");
     public Texture2D babyblue = TetrisGame.ContentManager.Load<Texture2D>("babyblue");
-    public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
+    public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange"); //deze zooi moet misschien eigenlijk in een leuke init. oid. maar dat maakt alles stuk. als je dit nakijkt en denkt het beter te kunnen doen pls doe.
     protected SoundEffect LineClear;
     /// <summary>
     /// Creates a new TetrisGrid.
@@ -41,17 +41,12 @@ class TetrisGrid
         {
             for (int x = 0; x != Width; x++)
             {
-                array[x, y] = block;
+                array[x, y] = block; //maakt een leeg grid dat uit lege blokjes bestaat, "block" is hierbij de texture van een leeg blokje
             }
         }
         position = Vector2.Zero;
-        Clear();
     }
-    /// <summary>
-    /// Draws the grid on the screen.
-    /// </summary>
-    /// <param name="gameTime">An object with information about the time that has passed in the game.</param>
-    /// <param name="spriteBatch">The SpriteBatch used for drawing sprites and text.</param>
+
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         Vector2 drawPos = position;
@@ -59,7 +54,7 @@ class TetrisGrid
         {
             for (int x = 0; x != Width; x++)
             {
-                spriteBatch.Draw(array[x, y], drawPos, Color.White);   //als leeg teken lege cel             
+                spriteBatch.Draw(array[x, y], drawPos, Color.White);  //tekent voor elk cel het corresponderende blokje in de grid.       
                 drawPos.X += block.Width;
             }
             drawPos.X = 0;
@@ -67,62 +62,44 @@ class TetrisGrid
         }
     }
 
-    public void CheckfullLine()
+    public void CheckfullLine() //gaat elke rij na of deze een leeg block bevat, als dit niet een geval is, is de rij dus vol en wordt er een collapse in werking gestelt
     {
-        LineClear = Content.Load<SoundEffect>("Ttrs---Clear-Line");
-        for (int i = Height - 1; i >= 0; i--)
+        Vector2 loopPos = position;
+        for (int y = Height-1; y != 0; y--)
         {
-            if (FullLine(i))
+            bool fullrow = true;
+            for (int x = 0; x != Width; x++)
             {
-                ClearLine(i);
-                MoveDown(i);
-                LineClear.Play();
-                
-}
-        }
-    }
-
-    bool FullLine(int i)
-    {
-        bool check = true;
-        for (int j = 0; j< Width-1; j++)
-        {
-            if (array[j, i] == block)
-            check = false;
-        }
-        return check;
-    }
-        
-   void ClearLine(int i)
-    {
-        for (int j = 0; j< Width; j++)
-        {
-            // niet zeker hoe dit werkt clear array[i, j] =  ;
-            array[j, i] = block;
-        }
-    }
-    void MoveDown(int i)
-    {
-        for (int y = i; i < Height; y++)
-        {
-            for (int j=0; j <Width; j++)
-            {
-                if(array[j, y] != null)
+                if (array[x, y] == block)
                 {
-                    array[j, y - 1] = array[j, y];
-                    array[j, y] = null;
-                    //mss nog een comand zoals array[j, y-1] = new Vector/ new posision
+                    fullrow = false;
                 }
+                loopPos.X += block.Width;
             }
+            if (fullrow)
+            {
+                Collapse(y);
+                y++; //anders skipt ie rijen als er meerdere tegelijk zijn
+               // GameWorld.Score += 1000;
+            }
+            loopPos.X = 0;
+            loopPos.Y += block.Height;
         }
     }
-    
-
-   
-    /// <summary>
-    /// Clears the grid.
-    /// </summary>
-    public void Clear()
+    protected void Collapse(int yArg) //maakt van een volle rij een rij met lege blocks en schuift deze als het ware omhoog door continu met de rij erboven te swappen, hierdoor schuiven de rijen erboven dus ook meteen naar beneden.
     {
+        Vector2 loopPos = position;
+        for (int y = yArg; y != 0; y--)
+        {
+            for (int x = 0; x != Width; x++)
+            {
+                array[x, y] = array[x, y-1];
+                array[x, y-1] = block;
+                loopPos.X += block.Width;
+            }
+
+            loopPos.X = 0;
+            loopPos.Y += block.Height;
+        }
     }
 }

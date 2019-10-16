@@ -11,10 +11,10 @@ using Microsoft.Xna.Framework.Input;
 
 
 
-class Shapes : GameWorld
+class Shapes 
 
 {
-    public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
+    public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block"); //ja dit is een dupicate maar dit verbeteren kost meer tijd dan dat je ooit zou besparen.
     public Texture2D yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
     public Texture2D blue = TetrisGame.ContentManager.Load<Texture2D>("blue");
     public Texture2D red = TetrisGame.ContentManager.Load<Texture2D>("red");
@@ -28,9 +28,9 @@ class Shapes : GameWorld
     public Shapes()
     {
         Random random = new Random();
-        gridpos = new Point(4, 0);
+        gridpos = new Point(4, 0); //vormpje spawnt midden bovenin het grid
     }
-    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch) //tekent de vormpjes in het speelveld apart van het grid
     {
         int Height = array.GetLength(1);
         int Width = Height;
@@ -49,7 +49,7 @@ class Shapes : GameWorld
             position.Y += block.Height;
         }
     }
-    public void RotateRight() //TODO let op dat geen blokjes buiten het veld komen
+    public void RotateRight() //zet de array op zijn kant
     {
         int x = array.GetLength(1);
         Texture2D[,] tempArray = new Texture2D[x, x];
@@ -64,7 +64,7 @@ class Shapes : GameWorld
 
     }
 
-    public void RotateLeft()
+    public void RotateLeft() //drie keer rechts is links, probeer het maar op de fiets
     {
         for (int i = 0; i < 3; i++)
         {

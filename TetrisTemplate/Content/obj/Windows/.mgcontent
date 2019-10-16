@@ -14,6 +14,7 @@
     <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/red.png</File>
     <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/yellow.png</File>
     <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/Tetris.mp3</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/clear.wav</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/Ttrs---Rotate.wav</File>
+    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/Ttrs---Clear-Line.wav</File>
   </SourceFiles>
 </SourceFileCollection>

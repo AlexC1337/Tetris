@@ -102,10 +102,10 @@ class GameWorld
         }
     }
 
-    public void Initialise()
-    {  //wilde eerst random object uit array maar dit werkte niet, daarom dus deze onelegante switch
+    public void Initialise() // bakt aan het begin een gridje, een vormpje en andere dingen die ingeladen moeten worden.
+    {  
 
-        MakeShape();
+        NewShape();
         int arraySize = currentShape.array.Length;
         Texture2D[,] array = currentShape.array;
 
@@ -113,9 +113,9 @@ class GameWorld
         grid = new TetrisGrid();
     }
 
-    protected void MakeShape()
+    protected void NewShape() //pakt een nieuw random tetrisvormpje
     {
-        switch (random.Next(7))
+        switch (random.Next(7))//wilde eerst random object uit array maar dit werkte niet, daarom dus deze onelegante switch
         {
             case 0:
                 currentShape = new T();
@@ -139,6 +139,10 @@ class GameWorld
                 currentShape = new Z();
                 break;
         }
+        if (Collision())
+        {
+            gameState = GameState.GameOver; //als er net een nieuw vormpje spawnt en hij collide al meteen met het grid is het game over, helaas pindakaas, dommage peanuttefromage
+        }
     }
 
     public void Update(GameTime gameTime)
@@ -148,30 +152,27 @@ class GameWorld
         if (timeSinceLastMove >= speed)
         {
             currentShape.gridpos.Y += 1;
-            timeSinceLastMove -= speed;
-            if (Collision())
+            timeSinceLastMove -= speed;   //zorgt er voor dat het blokje consistent naar beneden valt
+            if (Collision())            //als het blokje automatisch naar beneden gaat en in de stapel met blokjes zit, wordt de bool Collision true, schuift het blokje weer 1 positie omhoog en wordt onderdeel van de stapel
             {
                 currentShape.gridpos.Y -= 1;
-                JoinGrid();
+                JoinGrid();                 
             }
         }
     }
-    public bool Collision()
+    public bool Collision() // kijkt of het blokje op een plek zit waar hij mag zijn, dus niet buiten het speelveld of in een blokje in het grid
     {
-        bool collision = false;
+        bool collision = false; //standaard is er geen collision
         Texture2D[,] array = currentShape.array;
         Point gridpos = currentShape.gridpos;
-        Point RelPos = gridpos;
         int length = array.GetLength(1);
-        //switch (direction)
-
         for (int y = 0; y < length; y++)
         {
             for (int x = 0; x < length; x++)
             {
                int blockX = gridpos.X + x;
                int blockY = gridpos.Y + y;
-                if (array[x, y].Name != "block")
+                if (array[x, y].Name != "block") //"block" is een lege plek in de array, dus moet er alleen gekeken worden naar entries die niet leeg zijn.
                 {
                     if (blockX < 0 || blockX > 9 || blockY < 0 || blockY > 19 || grid.array[blockX, blockY].Name != "block")//kijk of shape niet buiten grid raakt en dat shape niet op een gevuld gridblok staat
                     {
@@ -193,16 +194,16 @@ class GameWorld
         {
             for (int x = 0; x < length; x++)
             {
-                int blockX = currentShape.gridpos.X + x;
+                int blockX = currentShape.gridpos.X + x;//geeft de positie van de 4 blokjes waaruit een tetrisblokje is opgebouwd op het tetrisgrid
                 int blockY = currentShape.gridpos.Y + y;
                 if (currentShape.array[x, y].Name != "block")
                 {
-                    grid.array[blockX, blockY] = currentShape.array[x, y];
+                    grid.array[blockX, blockY] = currentShape.array[x, y]; //vervangt het grid met blokje
                 }
             }
         }
-        MakeShape();
-       // grid.CheckfullLine();
+        NewShape();
+        grid.CheckfullLine();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
