@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 /// <summary>
 /// A class for representing the game world.
@@ -9,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 /// </summary>
 class GameWorld
 {
+    
     /// <summary>
     /// An enum for the different game states that the game can have.
     /// </summary>
@@ -42,16 +45,20 @@ class GameWorld
     //  Shapes[] vormen = new Shapes[] { new T(), new J(), new L(), new S(), new Z(), new O(), new I()};
     double speed = 1;
     double timeSinceLastMove = 0;
+    protected SoundEffect RotateSound;
+    
 
-    public GameWorld()
+    public GameWorld(ContentManager Content)
     {
+        
+        RotateSound = Content.Load<SoundEffect>("Ttrs---Rotate");
         gameState = GameState.Playing;
         // currentShape = vormen[random.Next(vormen.Length)];
     }
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
+        if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.Space))  /// andere positie in code
         {
             currentShape.gridpos.Y += 1; //  Y grid + 1
             if (Collision())
@@ -75,9 +82,10 @@ class GameWorld
                 currentShape.gridpos.X -= 1;
             }
         }
-        if (inputHelper.KeyPressed(Keys.A))
+        if (inputHelper.KeyPressed(Keys.A) || inputHelper.KeyPressed(Keys.Up))
         {
             currentShape.RotateLeft();
+            RotateSound.Play();
             if (Collision())
             {
                 currentShape.RotateRight();
@@ -86,6 +94,7 @@ class GameWorld
         if (inputHelper.KeyPressed(Keys.D))
         {
             currentShape.RotateRight();
+            RotateSound.Play();
             if (Collision())
             {
                 currentShape.RotateLeft();
@@ -208,4 +217,6 @@ class GameWorld
     {
     }
 
+    
+    
 }

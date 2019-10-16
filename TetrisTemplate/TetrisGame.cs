@@ -57,7 +57,7 @@ class TetrisGame : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // create and reset the game world
-        gameWorld = new GameWorld();
+        gameWorld = new GameWorld(ContentManager);
         gameWorld.Initialise();
         gameWorld.Reset();
     }

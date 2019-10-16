@@ -122,9 +122,15 @@
 /processorParam:Quality=Best
 /build:Tetris.mp3
 
-#begin clear.wav
+#begin Ttrs---Rotate.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:clear.wav
+/build:Ttrs---Rotate.wav
+
+#begin Ttrs---Clear-Line.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Ttrs---Clear-Line.wav
 

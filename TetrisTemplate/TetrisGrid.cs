@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 /// <summary>
 /// A class for representing the Tetris playing grid.
@@ -27,7 +29,7 @@ class TetrisGrid
     public Texture2D purple = TetrisGame.ContentManager.Load<Texture2D>("purple");
     public Texture2D babyblue = TetrisGame.ContentManager.Load<Texture2D>("babyblue");
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
-
+    protected SoundEffect LineClear;
     /// <summary>
     /// Creates a new TetrisGrid.
     /// </summary>
@@ -67,13 +69,16 @@ class TetrisGrid
 
     public void CheckfullLine()
     {
-        for (int i= Height- 1; i > 0; i--)
+        LineClear = Content.Load<SoundEffect>("Ttrs---Clear-Line");
+        for (int i = Height - 1; i >= 0; i--)
         {
             if (FullLine(i))
             {
                 ClearLine(i);
-              //  MoveDown(Height);
-            }
+                MoveDown(i);
+                LineClear.Play();
+                
+}
         }
     }
 
