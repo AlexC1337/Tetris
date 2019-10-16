@@ -7,13 +7,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-<<<<<<< HEAD
 
 
-class Shapes
-=======
+
+
 class Shapes : GameWorld
->>>>>>> 428f6104376bf7339eb9ef60743288d029ca4914
+
 {
     public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
     public Texture2D yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
@@ -25,12 +24,12 @@ class Shapes : GameWorld
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
     public Texture2D[,] array;
     public Point gridpos;
-<<<<<<< HEAD
+
     
 
-=======
+
     public Point RelPos;
->>>>>>> 428f6104376bf7339eb9ef60743288d029ca4914
+
     public Shapes()
     {
         Random random = new Random();
