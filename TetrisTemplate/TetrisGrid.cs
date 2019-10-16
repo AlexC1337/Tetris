@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 /// <summary>
 /// A class for representing the Tetris playing grid.
 /// </summary>
-class TetrisGrid
+class TetrisGrid : GameWorld
 {
     /// The sprite of a single empty cell in the grid.
     // public Texture2D block, yellow, blue, green, babyblue, red, purple, orange;
@@ -19,7 +21,7 @@ class TetrisGrid
     static public int Height { get { return 20; } }
     public Texture2D[,] array = new Texture2D[Width, Height];
 
-  public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
+    public Texture2D block = TetrisGame.ContentManager.Load<Texture2D>("block");
     public Texture2D yellow = TetrisGame.ContentManager.Load<Texture2D>("yellow");
     public Texture2D blue = TetrisGame.ContentManager.Load<Texture2D>("blue");
     public Texture2D red = TetrisGame.ContentManager.Load<Texture2D>("red");
@@ -27,7 +29,7 @@ class TetrisGrid
     public Texture2D purple = TetrisGame.ContentManager.Load<Texture2D>("purple");
     public Texture2D babyblue = TetrisGame.ContentManager.Load<Texture2D>("babyblue");
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange");
-
+    protected SoundEffect LineClear;
     /// <summary>
     /// Creates a new TetrisGrid.
     /// </summary>
@@ -74,16 +76,20 @@ class TetrisGrid
             position.Y += grid.block.Height;
         }
     }
+    
 
-    void CheckfullLine()
+    void CheckfullLine(ContentManager Content)
     {
+        LineClear = Content.Load<SoundEffect>("Ttrs---Clear-Line");
         for (int i = Height - 1; i >= 0; i--)
         {
             if (FullLine(i))
             {
                 ClearLine(i);
                 MoveDown(i);
-            }
+                LineClear.Play();
+                
+}
         }
     }
 

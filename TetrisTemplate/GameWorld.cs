@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 /// <summary>
 /// A class for representing the game world.
@@ -9,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 /// </summary>
 class GameWorld
 {
+    
     /// <summary>
     /// An enum for the different game states that the game can have.
     /// </summary>
@@ -38,28 +41,35 @@ class GameWorld
     /// <summary>
     /// The main grid of the game.
     /// </summary>
-    TetrisGrid grid;
+   public TetrisGrid grid;
     //  Shapes[] vormen = new Shapes[] { new T(), new J(), new L(), new S(), new Z(), new O(), new I()};
     double speed = 1;
     double timeSinceLastMove = 0;
+    protected SoundEffect RotateSound;
+    
 
-    public GameWorld()
+    public GameWorld(ContentManager Content)
     {
+        
+        RotateSound = Content.Load<SoundEffect>("Ttrs---Rotate");
         gameState = GameState.Playing;
         // currentShape = vormen[random.Next(vormen.Length)];
     }
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Down))  /// andere positie in code
+        if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.Space))  /// andere positie in code
         {
             currentShape.gridpos.Y += 1; //  Y grid + 1
-
+            if(Collision())
+            {
+                currentShape.gridpos.Y -= 1;
+            }
         }
         if (inputHelper.KeyPressed(Keys.Left))
         {
             currentShape.gridpos.X -= 1; //  X grid -1 (naar links)
-            if (currentShape.Collision())
+            if (Collision())
             {
                 currentShape.gridpos.X += 1;
             }
@@ -67,18 +77,20 @@ class GameWorld
         if (inputHelper.KeyPressed(Keys.Right))
         {
             currentShape.gridpos.X += 1; //  X grid =1 (naar rechts)
-            if (currentShape.Collision())
+            if (Collision())
             {
                 currentShape.gridpos.X -= 1;
             }
         }
-        if (inputHelper.KeyPressed(Keys.A))
+        if (inputHelper.KeyPressed(Keys.A) || inputHelper.KeyPressed(Keys.Up))
         {
             currentShape.RotateLeft();
+            RotateSound.Play();
         }
         if (inputHelper.KeyPressed(Keys.D))
         {
            currentShape.RotateRight();
+            RotateSound.Play();
         }
     }
 
@@ -127,9 +139,55 @@ class GameWorld
         {
             currentShape.gridpos.Y += 1;
             timeSinceLastMove -= speed;
+            if (Collision())
+            {
+                Texture2D[,] array = currentShape.array;
+                int length = array.GetLength(1);
+                for (int y = 0; y < length; y++)
+                {
+                    for (int x = 0; x < length; x++)
+                    {
+                        currentShape.RelPos.X = currentShape.gridpos.X + x;
+                        currentShape.RelPos.Y = currentShape.gridpos.Y + y;
+                        if (currentShape.array[x, y].Name != "block")
+                        {
+                           
+                        }
+
+                    }
+                }
+            }
         }
         
 
+    }
+    public bool Collision()
+    {
+        bool collision = false;
+        Texture2D[,] array = currentShape.array;
+        Point gridpos = currentShape.gridpos;
+        Point RelPos = currentShape.RelPos;
+        int length = array.GetLength(1);
+        //switch (direction)
+
+        for (int y = 0; y < length; y++)
+        {
+            for (int x = 0; x < length; x++)
+            {
+                RelPos.X = gridpos.X + x;
+                RelPos.Y = gridpos.Y + y;
+                if (array[x, y].Name != "block")
+                {
+                    if (RelPos.X < 0 || RelPos.X > 9 || RelPos.Y < 0 || RelPos.Y > 20 || grid.array[RelPos.X, RelPos.Y].Name != "block")
+                    {
+                        collision = true;
+
+                    }
+                }
+
+            }
+        }
+        return collision;
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -144,4 +202,6 @@ class GameWorld
     {
     }
 
+    
+    
 }
