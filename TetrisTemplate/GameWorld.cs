@@ -20,29 +20,20 @@ class GameWorld
         Playing,
         GameOver
     }
-    Shapes currentShape;
+    Shapes currentShape, nextShape;
 
-    /// <summary>
     /// The random-number generator of the game.
-    /// </summary>
     public static Random Random { get { return random; } }
     static Random random = new Random();
 
-    /// <summary>
     /// The main font of the game.
-    /// </summary>
     SpriteFont font;
 
-    /// <summary>
     /// The current game state.
-    /// </summary>
     GameState gameState;
 
-    /// <summary>
     /// The main grid of the game.
-    /// </summary>
     public TetrisGrid grid;
-    //  Shapes[] vormen = new Shapes[] { new T(), new J(), new L(), new S(), new Z(), new O(), new I()};
     double speed = 1;
     double timeSinceLastMove = 0;
     protected SoundEffect RotateSound;
@@ -103,14 +94,15 @@ class GameWorld
     }
 
     public void Initialise() // bakt aan het begin een gridje, een vormpje en andere dingen die ingeladen moeten worden.
-    {  
-
+    {
+        grid = new TetrisGrid();
+        NewShape();
+        currentShape = nextShape;
+        currentShape.gridpos = new Point(4, 0);
         NewShape();
         int arraySize = currentShape.array.Length;
         Texture2D[,] array = currentShape.array;
-
         font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
-        grid = new TetrisGrid();
     }
 
     protected void NewShape() //pakt een nieuw random tetrisvormpje
@@ -118,31 +110,28 @@ class GameWorld
         switch (random.Next(7))//wilde eerst random object uit array maar dit werkte niet, daarom dus deze onelegante switch
         {
             case 0:
-                currentShape = new T();
+                nextShape = new T();
                 break;
             case 1:
-                currentShape = new J();
+                nextShape = new J();
                 break;
             case 2:
-                currentShape = new L();
+                nextShape = new L();
                 break;
             case 3:
-                currentShape = new I();
+                nextShape = new I();
                 break;
             case 4:
-                currentShape = new O();
+                nextShape = new O();
                 break;
             case 5:
-                currentShape = new S();
+                nextShape = new S();
                 break;
             case 6:
-                currentShape = new Z();
+                nextShape = new Z();
                 break;
         }
-        if (Collision())
-        {
-            gameState = GameState.GameOver; //als er net een nieuw vormpje spawnt en hij collide al meteen met het grid is het game over, helaas pindakaas, dommage peanuttefromage
-        }
+        nextShape.gridpos = new Point(14, 1);
     }
 
     public void Update(GameTime gameTime)
@@ -202,7 +191,13 @@ class GameWorld
                 }
             }
         }
+        currentShape = nextShape;
+        currentShape.gridpos = new Point(4, 0);
         NewShape();
+        if (Collision())
+        {
+            gameState = GameState.GameOver; //als er net een nieuw vormpje spawnt en hij collide al meteen met het grid is het game over, helaas pindakaas, dommage peanuttefromage
+        }
         grid.CheckfullLine();
     }
 
@@ -211,6 +206,7 @@ class GameWorld
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
         currentShape.Draw(gameTime, spriteBatch);
+        nextShape.Draw(gameTime, spriteBatch);
         spriteBatch.End();
     }
 

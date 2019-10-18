@@ -49,6 +49,26 @@ class Shapes
             position.Y += block.Height;
         }
     }
+    public void DrawNext(GameTime gameTime, SpriteBatch spriteBatch) //tekent de vormpjes in het speelveld apart van het grid
+    {
+        int Height = array.GetLength(1);
+        int Width = Height;
+        gridpos.X = 12;
+        Vector2 position;
+        position.X = gridpos.X * block.Width;
+        position.Y = gridpos.Y * block.Height;
+        for (int y = 0; y != Height; y++)
+        {
+            for (int x = 0; x != Width; x++)
+            {
+                if (array[x, y] != block)
+                    spriteBatch.Draw(array[x, y], position, Color.White);  //als kleur, geef kleur
+                position.X += block.Width;
+            }
+            position.X = gridpos.X * block.Width;
+            position.Y += block.Height;
+        }
+    }
     public void RotateRight() //zet de array op zijn kant
     {
         int x = array.GetLength(1);

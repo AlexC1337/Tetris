@@ -4,17 +4,17 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/SpelFont.spritefont</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/block.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/babyblue.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/blue.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/green.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/orange.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/purple.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/red.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/yellow.png</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/Tetris.mp3</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/Ttrs---Rotate.wav</File>
-    <File>C:/Users/aleks/Documents/Gameprogrammeren/Tetris/TetrisTemplate/Content/Ttrs---Clear-Line.wav</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/SpelFont.spritefont</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/block.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/babyblue.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/blue.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/green.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/orange.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/purple.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/red.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/yellow.png</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/Tetris.mp3</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/Ttrs---Rotate.wav</File>
+    <File>D:/Documents/GitHub/Tetris/TetrisTemplate/Content/Ttrs---Clear-Line.wav</File>
   </SourceFiles>
 </SourceFileCollection>
