@@ -37,19 +37,35 @@ class GameWorld
     double speed = 1;
     double timeSinceLastMove = 0;
     protected SoundEffect RotateSound;
-    
+    public SoundEffect LineClear;
+    public int Score = 0;
+    SpriteBatch spriteBatch;
 
+    public void puntenSpeed() // level, snelheid verandering
+    {
+        int Scorecount = 0;
+        int lvl = 1;
+        Scorecount += Score;
+        spriteBatch.DrawString(font, "lvl " + lvl, new Vector2(400, 50), Color.Black); // kan ook andere plek. positie tekst weet niet waar
+        if (Scorecount >= 100)
+        {
+            speed -= 0.1;
+            Scorecount = 0;
+            lvl += 1;
+        }
+    }
     public GameWorld(ContentManager Content)
     {
         
         RotateSound = Content.Load<SoundEffect>("Ttrs---Rotate");
+        LineClear = Content.Load<SoundEffect>("Ttrs---Clear-Line");
         gameState = GameState.Playing;
         // currentShape = vormen[random.Next(vormen.Length)];
     }
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.Space))  /// andere positie in code
+        if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.Space))  // andere positie in code
         {
             currentShape.gridpos.Y += 1; //  Y grid + 1
             if (Collision())

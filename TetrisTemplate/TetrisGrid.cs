@@ -29,7 +29,7 @@ class TetrisGrid
     public Texture2D purple = TetrisGame.ContentManager.Load<Texture2D>("purple");
     public Texture2D babyblue = TetrisGame.ContentManager.Load<Texture2D>("babyblue");
     public Texture2D orange = TetrisGame.ContentManager.Load<Texture2D>("orange"); //deze zooi moet misschien eigenlijk in een leuke init. oid. maar dat maakt alles stuk. als je dit nakijkt en denkt het beter te kunnen doen pls doe.
-    protected SoundEffect LineClear;
+    
     /// <summary>
     /// Creates a new TetrisGrid.
     /// </summary>
@@ -80,7 +80,8 @@ class TetrisGrid
             {
                 Collapse(y);
                 y++; //anders skipt ie rijen als er meerdere tegelijk zijn
-               // GameWorld.Score += 1000;
+                GameWorld.Score += 10;
+                GameWorld.LineClear.Play();
             }
             loopPos.X = 0;
             loopPos.Y += block.Height;
