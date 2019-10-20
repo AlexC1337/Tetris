@@ -32,40 +32,39 @@ class GameWorld
     GameState gameState;
     /// The main grid of the game.
     public TetrisGrid grid;
-    static double speed;
-    static double timeSinceLastMove = 0;
-    const double speedModifier = 0.7; //speed modifier changes difficulty, modifier 0.6 gives an endspeed of 4 times the normal speed, 0,7 3 times, 0.8 2 times.
-    protected static SoundEffect RotateSound;
-    public static SoundEffect LineClear;
+    double speed;
+    double timeSinceLastMove = 0;
+    const double speedModifier = 0.6; //speed modifier changes difficulty, modifier 0.6 gives a terminal velocity of 4 times the normal speed, 0,7 3 times, 0.8 2 times.
+    public static SoundEffect RotateSound, LineClear;
     public static int score;
     public static int totalscore;
     static int level;
-
-    public void puntenSpeed() // level, snelheid verandering
+    int levelTime = 0;
+    GameTime gameTime;
+    public void checkLevelUp(GameTime gameTime) // level, snelheid verandering
     {
-        if (score == 100)
+        if (score >= 100)
         {
             speed = speed * speedModifier + 0.1; //speed gradually changes to a set point, at a certain point the speed stops increasing because the limit has been reached.
             score = 0;
             level++;
+            levelTime = gameTime.TotalGameTime.Seconds;
         }
         
     }
     public GameWorld(ContentManager Content)
     {
-        RotateSound = Content.Load<SoundEffect>("Ttrs---Rotate");
-        LineClear = Content.Load<SoundEffect>("Ttrs---Clear-Line");
         gameState = GameState.Playing;
     }
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.Space))  // andere positie in code
+        if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.Space))  
         {
             currentShape.gridpos.Y += 1; //  Y grid + 1
             if (Collision())
             {
-                currentShape.gridpos.Y -= 1;
+                currentShape.gridpos.Y -= 1;        //als een blokje op een plek zit waar hij niet past beweegt ie weer terug naar zijn oorspronkelijke plek
             }
         }
         if (inputHelper.KeyPressed(Keys.Left))
@@ -87,23 +86,23 @@ class GameWorld
         if (inputHelper.KeyPressed(Keys.A) || inputHelper.KeyPressed(Keys.Up))
         {
             currentShape.RotateLeft();
-            RotateSound.Play();
             if (Collision())
             {
                 currentShape.RotateRight();
             }
+            RotateSound.Play();
         }
         if (inputHelper.KeyPressed(Keys.D))
         {
             currentShape.RotateRight();
-            RotateSound.Play();
             if (Collision())
             {
                 currentShape.RotateLeft();
             }
+            RotateSound.Play();
         }
 
-        if(inputHelper.KeyPressed(Keys.R) && gameState == GameState.GameOver)
+        if (inputHelper.KeyPressed(Keys.R) && gameState == GameState.GameOver)
         {
             Reset();
         }
@@ -114,6 +113,8 @@ class GameWorld
 
         font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
         background = TetrisGame.ContentManager.Load<Texture2D>("background");
+        RotateSound = TetrisGame.ContentManager.Load<SoundEffect>("Ttrs---Rotate");
+        LineClear = TetrisGame.ContentManager.Load<SoundEffect>("Ttrs---Clear-Line");
     }
 
     protected void NewShape() //pakt een nieuw random tetrisvormpje
@@ -158,7 +159,7 @@ class GameWorld
                 {
                     currentShape.gridpos.Y -= 1;
                     JoinGrid();
-                    puntenSpeed();
+                    checkLevelUp(gameTime);
                 }
             }
         }
@@ -206,12 +207,12 @@ class GameWorld
                 }
             }
         }
-        currentShape = nextShape;
-        currentShape.gridpos = new Point(4, 0);
-        NewShape();
+        currentShape = nextShape;      // zorgt ervoor dat het volgende blokje het huidige blokje wordt
+        currentShape.gridpos = new Point(4, 0); //zet de positie rond het midden van de grid
+        NewShape(); //maakt een nieuw volgend blokje
         if (Collision())
         {
-            gameState = GameState.GameOver; //als er net een nieuw vormpje spawnt en hij collide al meteen met het grid is het game over, helaas pindakaas, dommage peanuttefromage
+            gameState = GameState.GameOver; //als er net een nieuw blokje spawnt en hij collide al meteen met het grid is het game over, helaas pindakaas,
         }
         grid.CheckfullLine();
     }
@@ -234,24 +235,29 @@ class GameWorld
         spriteBatch.End();
     }
 
-    protected void scoreDisplay(GameTime gameTime, SpriteBatch spriteBatch)
+    protected void scoreDisplay(GameTime gameTime, SpriteBatch spriteBatch) //laat informatie zien over de score en level
     {
         spriteBatch.DrawString(font, "Level: " + level, new Vector2(TetrisGrid.Width * grid.block.Width + 20, 50), Color.White);
         spriteBatch.DrawString(font, "Score: " + totalscore, new Vector2(TetrisGrid.Width * grid.block.Width + 20, 70), Color.White);
         spriteBatch.DrawString(font, "Next Shape: ", new Vector2(TetrisGrid.Width * grid.block.Width + 80, 5), Color.White);
+        if (levelTime + 1 > gameTime.TotalGameTime.Seconds && levelTime != 0) //zegt alleen "level up" in de seconde nadat een level up plaats heeft gevonden
+        {
+            spriteBatch.DrawString(font, "Level up!", new Vector2(450, 320), Color.White);
+        }
     }
 
-    protected void gameOver(GameTime gameTime, SpriteBatch spriteBatch)
+    protected void gameOver(GameTime gameTime, SpriteBatch spriteBatch)// laat game over scherm zien
     {
         spriteBatch.DrawString(font, "Game Over, press R to restart", new Vector2(TetrisGame.ScreenSize.X /2 -100, TetrisGame.ScreenSize.Y/2), Color.Black);
         spriteBatch.DrawString(font, "Level: " + level, new Vector2(TetrisGame.ScreenSize.X / 2 - 100, TetrisGame.ScreenSize.Y / 2 + 20), Color.Black);
         spriteBatch.DrawString(font, "Score: " + totalscore, new Vector2(TetrisGame.ScreenSize.X / 2 - 100, TetrisGame.ScreenSize.Y / 2 + 40), Color.Black);
     }
-    public void Reset()
+    public void Reset() //zet alle waardes weer op 0 en maakt een nieuw grid en vorm aan
     {
         gameState = GameState.Playing;
-        score = 0;
-        level = 1;
+        levelTime = 0;
+        score = 90;
+        level = 0;
         speed = 1;
         totalscore = 0;
         grid = new TetrisGrid();
@@ -262,7 +268,4 @@ class GameWorld
         int arraySize = currentShape.array.Length;
         Texture2D[,] array = currentShape.array;
     }
-
-    
-    
 }

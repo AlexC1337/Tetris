@@ -64,7 +64,7 @@ class TetrisGame : Game
 
     protected override void Update(GameTime gameTime)
     {
-        gameWorld.puntenSpeed();
+        gameWorld.checkLevelUp(gameTime);
         inputHelper.Update(gameTime);
         gameWorld.HandleInput(gameTime, inputHelper);
         gameWorld.Update(gameTime);

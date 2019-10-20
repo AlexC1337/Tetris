@@ -74,8 +74,8 @@ class Shapes
     }
 
 }
-
-class T : Shapes
+//hieronder staan alle verschillende blokken die in tetris voorkomen, gedefined als sprites in een array.
+class T : Shapes 
 {
     public T()
     {
