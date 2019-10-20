@@ -37,22 +37,22 @@ class GameWorld
     double speed = 1;
     double timeSinceLastMove = 0;
     protected SoundEffect RotateSound;
-    public SoundEffect LineClear;
-    public int Score = 0;
+    public static SoundEffect LineClear;
+    public static int Score = 0;
+    int lvl = 1;
+    public static int Scorecount = 0;
     SpriteBatch spriteBatch;
 
     public void puntenSpeed() // level, snelheid verandering
     {
-        int Scorecount = 0;
-        int lvl = 1;
-        Scorecount += Score;
-        spriteBatch.DrawString(font, "lvl " + lvl, new Vector2(400, 50), Color.Black); // kan ook andere plek. positie tekst weet niet waar
-        if (Scorecount >= 100)
+        
+        if (Scorecount >= 20)
         {
-            speed -= 0.1;
             Scorecount = 0;
+            speed -= 0.1;
             lvl += 1;
         }
+        
     }
     public GameWorld(ContentManager Content)
     {
@@ -223,6 +223,8 @@ class GameWorld
         grid.Draw(gameTime, spriteBatch);
         currentShape.Draw(gameTime, spriteBatch);
         nextShape.Draw(gameTime, spriteBatch);
+        spriteBatch.DrawString(font, "level: " + lvl, new Vector2(350, 50), Color.Black); // kan ook andere plek. positie tekst weet niet waar
+        spriteBatch.DrawString(font, "Score:  " + Score, new Vector2(350, 70), Color.Black);
         spriteBatch.End();
     }
 

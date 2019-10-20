@@ -81,6 +81,7 @@ class TetrisGrid
                 Collapse(y);
                 y++; //anders skipt ie rijen als er meerdere tegelijk zijn
                 GameWorld.Score += 10;
+                GameWorld.Scorecount += 10;
                 GameWorld.LineClear.Play();
             }
             loopPos.X = 0;
