@@ -49,6 +49,7 @@ class GameWorld
             score = 0;
             level++;
         }
+        
     }
     public GameWorld(ContentManager Content)
     {
