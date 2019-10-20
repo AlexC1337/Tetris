@@ -79,8 +79,9 @@ class TetrisGrid
             if (fullrow)
             {
                 Collapse(y);
-                y++; //anders skipt ie rijen als er meerdere tegelijk zijn
-                GameWorld.Score += 10;
+                y++; //anders skipt ie rijen als er meerdere tegelijk zijn had ook for loop omhoog kunnen doen maar dacht eerst dat ie juist andersom moet, uiteindelijk boeit t niet zoveel
+                GameWorld.score += 10;
+                GameWorld.totalscore += 10;
                 GameWorld.LineClear.Play();
             }
             loopPos.X = 0;
