@@ -46,7 +46,7 @@ class GameWorld
     public void puntenSpeed() // level, snelheid verandering
     {
         
-        if (Scorecount >= 20)
+        if (Scorecount >= 100)
         {
             Scorecount = 0;
             speed -= 0.1;
